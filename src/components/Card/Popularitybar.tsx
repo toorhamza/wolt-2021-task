@@ -20,9 +20,9 @@ const PopularityBar = ({ stars }: PopularityProps) => {
     <>
       {newArray.map((arr, index) => {
         if (index <= arr) {
-          return <FavoriteIcon />
+          return <FavoriteIcon key={index}/>
         } else {
-            return <FavoriteBorderIcon />
+            return <FavoriteBorderIcon key={index}/>
         }
       })}
     </>
