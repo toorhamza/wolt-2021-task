@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {FC} from 'react';
+import Navbar from "./components/Navbar"
+import Carousel from "./components/Carousel"
+import restaurants from "./data/discovery_page.json"
+import {Restaurant} from "./Types"
+import {ensure} from "./utils"
 
-function App() {
+interface RestaurantFind {
+  title: string;
+  restaurants: Array<Restaurant>
+}
+
+const App: FC = () => {
+  const popularRestaurants: RestaurantFind = ensure(restaurants.sections.find(i => i.title === "Popular Restaurants"))
+  const newRestaurants: RestaurantFind = ensure(restaurants.sections.find(i => i.title === "New Restaurants"))
+  const nearbyRestaurants: RestaurantFind = ensure(restaurants.sections.find(i => i.title === "Nearby Restaurants"))
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <Carousel restaurants={popularRestaurants.restaurants} title={popularRestaurants.title} />
+      <Carousel restaurants={newRestaurants.restaurants} title={newRestaurants.title} />
+      <Carousel restaurants={nearbyRestaurants.restaurants} title={nearbyRestaurants.title} />     
     </div>
   );
 }
